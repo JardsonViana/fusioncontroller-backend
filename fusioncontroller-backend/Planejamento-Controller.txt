@@ -1,0 +1,42 @@
+Planejamento Projeto Controller:
+
+- Sistema de Autenticação:
+
+- Users:
+-- name
+-- email
+-- phone
+-- username
+-- password
+-- status (active / deactive)
+-- priviledge (root / admin / support / noc / finance)
+
+- Cadastro de Clientes e CPEs:
+
+- Clients:
+-- name
+-- userweb
+-- passweb
+-- uservpn
+-- passvpn
+-- state
+-- city
+-- blocked
+
+- Providers:
+-- name
+-- cnpj
+-- phone
+-- protocol (PPPoE, DHCP, Estatico)
+-- userppp
+-- passppp
+-- ipclient
+-- ipgateway
+-- netmask
+-- traffic
+-- price
+-- expiration
+
+- CPE:
+-- hardware
+-- idmikrotik
