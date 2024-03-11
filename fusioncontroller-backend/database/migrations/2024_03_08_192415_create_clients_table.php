@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Cpe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Intervention\Image\Colors\Rgb\Channels\Blue;
 
 return new class extends Migration
 {
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->string('state');
             $table->string('city');
             $table->boolean('is_blocked')->default(false);
-            $table->int('cpe_id');
+            $table->foreignIdFor(Cpe::class)->references('id')->on('cpes')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -31,6 +33,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('cpes', function(Blueprint $table){
+            $table->dropForeignIdFor(Cpe::class);
+        });
         Schema::dropIfExists('clients');
     }
 };

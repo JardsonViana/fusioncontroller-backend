@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Provider;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,10 +20,11 @@ return new class extends Migration
             $table->string('ipclient')->nullable();
             $table->string('ipgateway')->nullable();
             $table->string('netmask')->nullable();
-            $table->int('traffic')->nullable();
+            $table->integer('traffic')->nullable();
             $table->float('price')->nullable();
-            $table->int('expiration')->nullable();
-            $table->int('provider_id');
+            $table->integer('expiration')->nullable();
+            $table->foreignIdFor(Provider::class)->references('id')->on('providers')->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +33,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('providers', function(Blueprint $table) {
+            $table->dropForeignIdFor(Provider::class);
+        });
         Schema::dropIfExists('circuits');
     }
 };

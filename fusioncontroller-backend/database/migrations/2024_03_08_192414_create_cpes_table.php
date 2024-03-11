@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Equipament;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,8 @@ return new class extends Migration
         Schema::create('cpes', function (Blueprint $table) {
             $table->id();
             $table->string('serialnumber');
-            $table->int('equipament_id');
+            $table->foreignIdFor(Equipament::class)->references('id')->on('equipaments')->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('equipaments', function(Blueprint $table) {
+            $table->dropForeignIdFor(Equipament::class);
+        });
         Schema::dropIfExists('cpes');
     }
 };

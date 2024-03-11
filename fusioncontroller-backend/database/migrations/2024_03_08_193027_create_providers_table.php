@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Client;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('cnpj');
             $table->string('phone')->nullable();
-            $table->int('client_id');
+            $table->foreignIdFor(Client::class)->references('id')->on('clients')->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +27,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('clients', function(Blueprint $table) {
+            $table->dropForeignIdFor(Client::class);
+        });
         Schema::dropIfExists('providers');
     }
 };
