@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\JsonResponse;
@@ -26,10 +26,15 @@ Route::get('/ping', function(): JsonResponse {
 });
 
 /* Rotas de Autenticação * Autenticação via TOKEN */
-Route::post('/user/signin', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
 Route::post('/user/new', [AuthController::class, 'newUsuario']);
-Route::get('/user', [AuthController::class, 'usuario']);
-Route::get('/user/logout', [AuthController::class, 'logout']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [AuthController::class, 'profile']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+
 
 /**
  * Rota de utilidade
