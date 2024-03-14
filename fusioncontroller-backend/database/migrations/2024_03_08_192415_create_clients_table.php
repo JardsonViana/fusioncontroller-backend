@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('state');
             $table->string('city');
             $table->boolean('is_blocked')->default(false);
-            $table->foreignIdFor(Cpe::class)->references('id')->on('cpes')->onDelete('CASCADE');
+            $table->foreignIdFor(Cpe::class)->nullable()->constrained('cpes')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

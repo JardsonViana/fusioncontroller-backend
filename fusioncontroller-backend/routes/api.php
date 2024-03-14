@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CircuitController;
+use App\Http\Controllers\API\ClientController;
+use App\Http\Controllers\API\CpeController;
+use App\Http\Controllers\API\EquipamentController;
+use App\Http\Controllers\API\ProviderController;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\JsonResponse;
@@ -32,25 +38,51 @@ Route::post('/user/new', [AuthController::class, 'newUsuario']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::get('/client/list', [ClientController::class, 'list']);
+    Route::get('/client/{id}', [ClientController::class, 'client']);
+    Route::post('/client/new', [ClientController::class, 'newClient']);
+    Route::put('/client/{id}', [ClientController::class, 'clientEdit']);
+    Route::delete('/client/{id}', [ClientController::class, 'clientDelete']);
+
+    Route::post('/provider/new', [ProviderController::class, 'newProvider']);
+    Route::get('/provider/{id}', [ProviderController::class, 'provider']);
+    Route::put('/provider/{id}', [ProviderController::class, 'providerEdit']);
+    Route::delete('/provider/{id}', [ProviderController::class, 'providerDelete']);
+
+    Route::get('/equipament/list', [EquipamentController::class, 'list']);
+    Route::post('/equipament/new', [EquipamentController::class, 'newEquipament']);
+    Route::get('/equipament/{id}', [EquipamentController::class, 'equipament']);
+
+    Route::get('/cpe/list', [CpeController::class, 'list']);
+    Route::post('/cpe/new', [CpeController::class, 'newCpe']);
+    Route::get('/cpe/{id}', [CpeController::class, 'cpe']);
+    Route::put('cpe/{id}', [CpeController::class, 'cpeEdit']);
+    Route::delete('/cpe/{id}', [CpeController::class, 'cpeDelete']);
+
+    Route::post('/circuit/new', [CircuitController::class, 'newCircuit']);
+    Route::get('/circuit/{id}', [CircuitController::class, 'circuit']);
+    Route::put('/circuit/{id}', [CircuitController::class, 'circuitEdit']);
+    Route::delete('/circuit/{id}', [CircuitController::class, 'circuitDelete']);
 });
 
 
 
 /**
  * Rota de utilidade
- * [ ] - /ping - Responde PONG
+ * [x] - /ping - Responde PONG
  * 
  *  - Rotas de Autenticação * Autenticação via TOKEN
- * [ ] - /user/signin -- Login
- * [ ] - /user/new    -- Cadastro de usuario no sistema
- * [ ] - /user        -- Informação do usuario
+ * [x] - /user/signin -- Login
+ * [x] - /user/new    -- Cadastro de usuario no sistema
+ * [x] - /user        -- Informação do usuario
  * 
  * - Rotas de clientes
- * [ ] - /client/list - Listar todos os clientes cadastrados
- * [ ] - /client/:id  - Dados de um cliente especifico
- * [ ] - /client/new  - Adicionar um cliente novo
- * [ ] - /client/:id(PUT) - Alterar um cliente cadastrado
- * [ ] - /client/:id(DELETE) - Deletar um cliente cadastrado
+ * [x] - /client/list - Listar todos os clientes cadastrados
+ * [x] - /client/:id  - Dados de um cliente especifico
+ * [x] - /client/new  - Adicionar um cliente novo
+ * [x] - /client/:id(PUT) - Alterar um cliente cadastrado
+ * [x] - /client/:id(DELETE) - Deletar um cliente cadastrado
  * 
  * - Rotas de Provedores
  * [ ] - /provider/:id - Dados de um provider especifico
